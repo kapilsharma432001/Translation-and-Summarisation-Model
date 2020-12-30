@@ -5,7 +5,7 @@
 4. Currently able to do extractive summarization.
 5. Working on abstractive summrization and translation part.
 
-# Screenshots
+## Screenshots
 
 # Home Page
 ![P1](https://user-images.githubusercontent.com/44257218/103353495-09523400-4acf-11eb-9dc9-a37dacd93cdb.png)
