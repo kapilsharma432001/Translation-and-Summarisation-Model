@@ -254,6 +254,13 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame("StartPage"),cursor="hand2")
         button.pack(side="top",anchor="nw")
 
+        englishToHindiButton = tk.Button(self,text="ENGLISH TO HINDI TRANSLATION",font = ('orbitron',10),fg='#3d3d5c',height=1,relief="raised",borderwidth=3,command=uploadDocFile,cursor="hand2")
+        englishToHindiButton.place(x="50",y="120")
+
+        hindiToEnglishButton = tk.Button(self,text="HINDI TO ENGLISH TRANSLATION",font = ('orbitron',10),fg='#3d3d5c',height=1,relief="raised",borderwidth=3,command=uploadDocFile,cursor="hand2")
+        hindiToEnglishButton.place(x="350",y="120")
+        
+
 
 if __name__ == "__main__":
     app = SampleApp()
