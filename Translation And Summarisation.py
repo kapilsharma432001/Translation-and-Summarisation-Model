@@ -1,3 +1,4 @@
+from tkinter import *
 import tkinter as tk
 from tkinter import filedialog
 #Importing libraries for summarisation
@@ -12,8 +13,27 @@ from tkinter import messagebox
 global punctuation
 global text
 global textBox
+global textBoxT
 
 
+
+
+# Function to do translation from english to hindi
+def englishToHindiT(self):
+    textBoxT=tk.Text(self, height=15, width=30,padx="2")
+    textBoxT.pack(side = "left", pady = 100)
+    
+    
+
+
+
+# Function to do translation from hindi to english
+def hindiToEnglishT(self):
+    textBoxT=tk.Text(self, height=15, width=30,padx="2")
+    textBoxT.pack(side = "left", pady = 100)
+    
+    
+    
 
 #Function for summarization
 def summarization(self,text):
@@ -246,6 +266,21 @@ class PageOne(tk.Frame):
 class PageTwo(tk.Frame):
 
     def __init__(self, parent, controller):
+
+        options = [
+        "English",
+        "Hindi",
+        "urdu",
+        "bengali",
+        "gujarati"
+        ]
+
+        clicked1 = StringVar()
+        clicked2 = StringVar()
+
+        clicked1.set( "English" )
+        clicked2.set( "Hindi" )
+        
         tk.Frame.__init__(self, parent,bg = "#3d3d5c")
         self.controller = controller
         label = tk.Label(self,text = 'Translation',font=('orbitron',30,'bold'),foreground='white',background='#3d3d5c')
@@ -254,11 +289,18 @@ class PageTwo(tk.Frame):
                             command=lambda: controller.show_frame("StartPage"),cursor="hand2")
         button.pack(side="top",anchor="nw")
 
-        englishToHindiButton = tk.Button(self,text="ENGLISH TO HINDI TRANSLATION",font = ('orbitron',10),fg='#3d3d5c',height=1,relief="raised",borderwidth=3,command=uploadDocFile,cursor="hand2")
-        englishToHindiButton.place(x="50",y="120")
 
-        hindiToEnglishButton = tk.Button(self,text="HINDI TO ENGLISH TRANSLATION",font = ('orbitron',10),fg='#3d3d5c',height=1,relief="raised",borderwidth=3,command=uploadDocFile,cursor="hand2")
-        hindiToEnglishButton.place(x="350",y="120")
+        label3 = tk.Label(self,text = 'CHOOSE THE LANGUAGES',font=('orbitron',15,'bold'),foreground='white',background='#3d3d5c')
+        label3.place(x="50",y="80")
+        
+        label3 = tk.Label(self,text = 'TO',font=('orbitron',10,'bold'),foreground='white',background='#3d3d5c')
+        label3.place(x="225",y="125")
+        
+        drop1 = tk.OptionMenu( self , clicked1 , *options)
+        drop1.place(x="50",y="120")
+
+        drop2 = tk.OptionMenu( self , clicked2 , *options)
+        drop2.place(x="350",y="120")
         
 
 
