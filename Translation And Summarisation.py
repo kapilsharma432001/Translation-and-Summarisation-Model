@@ -270,9 +270,9 @@ class PageTwo(tk.Frame):
         options = [
         "English",
         "Hindi",
-        "urdu",
-        "bengali",
-        "gujarati"
+        "Urdu",
+        "Bengali",
+        "Gujarati"
         ]
 
         clicked1 = StringVar()
@@ -280,6 +280,11 @@ class PageTwo(tk.Frame):
 
         clicked1.set( "English" )
         clicked2.set( "Hindi" )
+
+        def continueButtonClicked():
+            label4 = tk.Label(self,text = 'Enter {} language sentences to translate into {}'.format(clicked1.get(), clicked2.get()),font=('orbitron',12,'bold'),foreground='white',background='#3d3d5c')
+            label4.place(x="50",y="200")
+
         
         tk.Frame.__init__(self, parent,bg = "#3d3d5c")
         self.controller = controller
@@ -301,6 +306,10 @@ class PageTwo(tk.Frame):
 
         drop2 = tk.OptionMenu( self , clicked2 , *options)
         drop2.place(x="350",y="120")
+
+        continueButton = tk.Button(self, text="CONTINUE",relief='raised',borderwidth=3,width=12,height=1,font=('orbitron',10),fg='#3d3d5c',
+                            command=continueButtonClicked,cursor="hand2")
+        continueButton.place(x="50",y="170")
         
 
 
