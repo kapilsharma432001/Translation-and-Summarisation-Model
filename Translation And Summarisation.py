@@ -8,6 +8,8 @@ from string import punctuation
 from heapq import nlargest
 import docx2txt
 from tkinter import messagebox
+from googletrans import Translator, constants
+from pprint import pprint
 
 
 global punctuation
@@ -15,6 +17,7 @@ global text
 global textBox
 global textBox2
 global textBox3
+global textBox4
 
 
 
@@ -157,7 +160,24 @@ def uploadPdfFile():
 
        
 
+def translateLanguages(self, text, lang1, lang2):
 
+    langDict = {'english':'en', 'hindi':'hi', 'gujrati':'gu', 'tamil':'ta', 'urdu':'ur'}
+
+    lang1 = lang1.lower()
+    lang2 = lang2.lower()
+
+    translator = Translator()
+
+    translation = translator.translate(text, src = langDict[lang1],dest=langDict[lang2])
+    
+
+    textBox4=tk.Text(self, height=15, width=40,padx="2")
+    textBox4.insert("1.0",translation.text)
+    textBox4.place(x="1050",y="270",anchor="ne")
+
+    
+    
 
 
 class SampleApp(tk.Tk):
@@ -267,10 +287,6 @@ class PageTwo(tk.Frame):
         clicked1.set( "English" )
         clicked2.set( "Hindi" )
 
-        def retrieve_input():
-            text=textBox3.get("1.0","end-1c")
-            print(text)
-            
 
         def continueButtonClicked():
             label4 = tk.Label(self,text = 'Enter {} language sentences to translate into {}'.format(clicked1.get(), clicked2.get()),font=('orbitron',12,'bold'),foreground='white',background='#3d3d5c')
@@ -282,7 +298,7 @@ class PageTwo(tk.Frame):
 
             def retrieve_input():
                 text=textBox3.get("1.0","end-1c")
-                print(text)
+                translateLanguages(self,text,clicked1.get(),clicked2.get())
             
             translateButton=tk.Button(self, text="TRANSLATE",command=retrieve_input,relief='raised',cursor="hand2",borderwidth=3,width=14,height=1,font=('orbitron',10,'bold'),pady="10",fg='#3d3d5c')
             translateButton.place(x="500",y="295")
