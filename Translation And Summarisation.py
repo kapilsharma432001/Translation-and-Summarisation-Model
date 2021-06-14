@@ -13,25 +13,11 @@ from tkinter import messagebox
 global punctuation
 global text
 global textBox
-global textBoxT
+global textBox2
+global textBox3
 
 
 
-
-# Function to do translation from english to hindi
-def englishToHindiT(self):
-    textBoxT=tk.Text(self, height=15, width=30,padx="2")
-    textBoxT.pack(side = "left", pady = 100)
-    
-    
-
-
-
-# Function to do translation from hindi to english
-def hindiToEnglishT(self):
-    textBoxT=tk.Text(self, height=15, width=30,padx="2")
-    textBoxT.pack(side = "left", pady = 100)
-    
     
     
 
@@ -281,9 +267,28 @@ class PageTwo(tk.Frame):
         clicked1.set( "English" )
         clicked2.set( "Hindi" )
 
+        def retrieve_input():
+            text=textBox3.get("1.0","end-1c")
+            print(text)
+            
+
         def continueButtonClicked():
             label4 = tk.Label(self,text = 'Enter {} language sentences to translate into {}'.format(clicked1.get(), clicked2.get()),font=('orbitron',12,'bold'),foreground='white',background='#3d3d5c')
-            label4.place(x="50",y="200")
+            label4.place(x="50",y="220")
+
+            textBox3=tk.Text(self, height=15, width=40,padx="2")
+            textBox3.place(x="50",y="270")
+
+
+            def retrieve_input():
+                text=textBox3.get("1.0","end-1c")
+                print(text)
+            
+            translateButton=tk.Button(self, text="TRANSLATE",command=retrieve_input,relief='raised',cursor="hand2",borderwidth=3,width=14,height=1,font=('orbitron',10,'bold'),pady="10",fg='#3d3d5c')
+            translateButton.place(x="500",y="295")
+            
+
+            
 
         
         tk.Frame.__init__(self, parent,bg = "#3d3d5c")
