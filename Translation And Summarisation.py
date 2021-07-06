@@ -162,7 +162,7 @@ def uploadPdfFile():
 
 def translateLanguages(self, text, lang1, lang2):
 
-    langDict = {'english':'en', 'hindi':'hi', 'gujrati':'gu', 'tamil':'ta', 'urdu':'ur'}
+    langDict = {'english':'en', 'hindi':'hi', 'gujarati':'gu', 'tamil':'ta', 'urdu':'ur'}
 
     lang1 = lang1.lower()
     lang2 = lang2.lower()
@@ -175,6 +175,52 @@ def translateLanguages(self, text, lang1, lang2):
     textBox4=tk.Text(self, height=15, width=40,padx="2")
     textBox4.insert("1.0",translation.text)
     textBox4.place(x="1050",y="270",anchor="ne")
+
+
+    def makeItSpeak():
+
+        # Import the gTTS module for text  
+        # to speech conversion  
+        from gtts import gTTS
+
+        import datetime
+
+        # This module is imported so that we can  
+        # play the converted audio  
+
+        from playsound import playsound  
+
+        # It is a text value that we want to convert to audio  
+        text_val = translation.text  
+
+        # Here are converting in English Language  
+        language = langDict[lang2]
+
+        # Passing the text and language to the engine,  
+        # here we have assign slow=False. Which denotes  
+        # the module that the transformed audio should  
+        # have a high speed  
+        obj = gTTS(text=text_val, lang=language, slow=False)  
+
+        #Here we are saving the transformed audio in a mp3 file named  
+        # exam.mp3
+
+        date_string = datetime.datetime.now().strftime("%d%m%Y%H%M%S")
+        filename = "voice"+date_string+".mp3"
+        obj.save(filename)  
+
+        # Play the exam.mp3 file  
+        playsound(filename)  
+
+
+        
+        
+
+    speakButton = tk.Button(self,text="MAKE IT SPEAK",font = ('orbitron',10),fg='#3d3d5c',height=1,relief="raised",borderwidth=3,command=makeItSpeak,cursor="hand2")
+    speakButton.place(x="1080",y="270")
+
+
+    
 
     
     
@@ -277,7 +323,7 @@ class PageTwo(tk.Frame):
         "English",
         "Hindi",
         "Urdu",
-        "Bengali",
+        "Tamil",
         "Gujarati"
         ]
 
