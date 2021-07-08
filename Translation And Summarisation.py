@@ -130,7 +130,7 @@ def summarization(self,text):
 
     headers = {
         'accept': "application/json",
-        'x-rapidapi-key': "d79a9f4502msh4b8117f915052dbp1de405jsndeae12db0c8b",
+        'x-rapidapi-key': "d79a9f4502msh4b81175052de405jse12dc8b",
         'x-rapidapi-host': "meaningcloud-summarization-v1.p.rapidapi.com"
         }
 
