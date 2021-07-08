@@ -1,3 +1,4 @@
+import requests
 from tkinter import *
 import tkinter as tk
 from tkinter import filedialog
@@ -25,7 +26,7 @@ global textBox4
     
 
 #Function for summarization
-def summarization(self,text):
+def abstractive_summarization(self,text):
     stopwords = list(STOP_WORDS)
     #Building nlp model
     nlp = spacy.load('en_core_web_sm')
@@ -118,6 +119,95 @@ def summarization(self,text):
     textBox2.place(x="1350",y="200",anchor="ne")
 
 
+def summarization(self,text):
+
+    if(len(text)<50):
+        messagebox.showinfo("Info", "Text doesn't need summarisation!")
+
+    url = "https://meaningcloud-summarization-v1.p.rapidapi.com/summarization-1.0"
+
+    querystring = {"sentences":"5","txt":text}
+
+    headers = {
+        'accept': "application/json",
+        'x-rapidapi-key': "d79a9f4502msh4b8117f915052dbp1de405jsndeae12db0c8b",
+        'x-rapidapi-host': "meaningcloud-summarization-v1.p.rapidapi.com"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+
+    response = response.json()
+
+
+    summary = response["summary"]
+
+    print("Length of the original text = ",len(text))
+    print("Length of the summary = ",len(summary))
+
+    label = tk.Label(self,text = 'Length of the original text:',font=('orbitron',12,'bold'),foreground='white',background='#3d3d5c')
+    label.place(x="780",y="554")
+    label = tk.Label(self,text = 'Length of the summary:',font=('orbitron',12,'bold'),foreground='white',background='#3d3d5c')
+    label.place(x="780",y="590")
+    label = tk.Label(self,text =len(text),font=('orbitron',12,'bold'),foreground='white',background='#3d3d5c')
+    label.place(x="1020",y="554")
+    label = tk.Label(self,text =len(summary),font=('orbitron',12,'bold'),foreground='white',background='#3d3d5c')
+    label.place(x="1000",y="590")
+            
+
+
+            
+    label = tk.Label(self,text = 'Summary:-',font=('orbitron',15,'bold'),foreground='white',background='#3d3d5c')
+    label.place(x="860",y="160")
+    textBox2=tk.Text(self, height=18, width=60,padx="2")
+    textBox2.insert("1.0",summary)
+    textBox2.place(x="1350",y="200",anchor="ne")
+
+    def makeItSpeak():
+
+        # Import the gTTS module for text  
+        # to speech conversion  
+        from gtts import gTTS
+
+        import datetime
+
+        # This module is imported so that we can  
+        # play the converted audio  
+
+        from playsound import playsound  
+
+        # It is a text value that we want to convert to audio  
+        text_val = summary  
+
+        # English Language  
+        language = 'en'
+
+        # Passing the text and language to the engine,  
+        # here we have assign slow=False. Which denotes  
+        # the module that the transformed audio should  
+        # have a high speed  
+        obj = gTTS(text=text_val, lang=language, slow=False)  
+
+        #Here we are saving the transformed audio in a mp3 file named  
+        # exam.mp3
+
+        date_string = datetime.datetime.now().strftime("%d%m%Y%H%M%S")
+        filename = "voice"+date_string+".mp3"
+        obj.save(filename)  
+
+        # Play the exam.mp3 file  
+        playsound(filename)  
+
+
+        
+        
+
+    speakButton = tk.Button(self,text="LISTEN IT !",font = ('orbitron',10),fg='#3d3d5c',height=1,relief="raised",borderwidth=3,command=makeItSpeak,cursor="hand2")
+    speakButton.place(x="1250",y="500")
+
+
+    
+
+
 #Function to upload the doc file
 def uploadDocFile():
     docFile = filedialog.askopenfilenames(initialdir="/", title = "Select the PDF file for Summarization", filetypes = (("docx file","*.docx"), ("All files","*.*"),("doc file","*.doc")))
@@ -193,7 +283,7 @@ def translateLanguages(self, text, lang1, lang2):
         # It is a text value that we want to convert to audio  
         text_val = translation.text  
 
-        # Here are converting in English Language  
+        # Specifying language  
         language = langDict[lang2]
 
         # Passing the text and language to the engine,  
